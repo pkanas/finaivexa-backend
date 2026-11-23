@@ -1,0 +1,2596 @@
+openapi: 3.0.3
+info:
+  title: AI Personal Finance API
+  version: 1.0.0
+  description: Production-ready REST API for personal finance, expense tracking, group
+    settlements and AI-powered insights.
+paths:
+  /api/v1/ai/analyze-spending:
+    post:
+      operationId: v1_ai_analyze_spending_create
+      summary: AI analysis of monthly spending
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalysisQueryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AnalysisQueryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AnalysisQueryRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/categorize:
+    post:
+      operationId: v1_ai_categorize_create
+      summary: Suggest a category for a transaction description
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategorizeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategorizeRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategorizeRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/query:
+    post:
+      operationId: v1_ai_query_create
+      summary: Ask a natural-language question about your finances
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinancialQueryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FinancialQueryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FinancialQueryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/recommend-budgets:
+    post:
+      operationId: v1_ai_recommend_budgets_create
+      summary: AI budget recommendations based on recent averages
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/ai/unusual-expenses:
+    get:
+      operationId: v1_ai_unusual_expenses_retrieve
+      summary: Detect statistically unusual recent expenses
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/change-password:
+    post:
+      operationId: v1_auth_change_password_create
+      summary: Change the current user's password
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/login:
+    post:
+      operationId: v1_auth_login_create
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/logout:
+    post:
+      operationId: v1_auth_logout_create
+      summary: Log out and blacklist the refresh token
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/auth/profile:
+    get:
+      operationId: v1_auth_profile_retrieve
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    put:
+      operationId: v1_auth_profile_update
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+    patch:
+      operationId: v1_auth_profile_partial_update
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/v1/auth/refresh:
+    post:
+      operationId: v1_auth_refresh_create
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefreshRequest'
+        required: true
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/auth/register:
+    post:
+      operationId: v1_auth_register_create
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/v1/budgets/:
+    get:
+      operationId: v1_budgets_list
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBudgetList'
+          description: ''
+    post:
+      operationId: v1_budgets_create
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+          description: ''
+  /api/v1/budgets/{id}/:
+    get:
+      operationId: v1_budgets_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this budget.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+          description: ''
+    put:
+      operationId: v1_budgets_update
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this budget.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BudgetRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+          description: ''
+    patch:
+      operationId: v1_budgets_partial_update
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this budget.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBudgetRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBudgetRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBudgetRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Budget'
+          description: ''
+    delete:
+      operationId: v1_budgets_destroy
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this budget.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/budgets/alerts/:
+    get:
+      operationId: v1_budgets_alerts_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      summary: Budgets that reached their alert threshold
+      parameters:
+      - in: query
+        name: month
+        schema:
+          type: integer
+          maximum: 12
+          minimum: 1
+      - in: query
+        name: year
+        schema:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/budgets/summary/:
+    get:
+      operationId: v1_budgets_summary_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      summary: Budget utilization summary for a month
+      parameters:
+      - in: query
+        name: month
+        schema:
+          type: integer
+          maximum: 12
+          minimum: 1
+      - in: query
+        name: year
+        schema:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/categories/:
+    get:
+      operationId: v1_categories_list
+      description: List/create/update the current user's categories plus global defaults.
+      parameters:
+      - in: query
+        name: is_default
+        schema:
+          type: boolean
+      - in: query
+        name: name
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - expense
+          - income
+        description: |-
+          * `income` - Income
+          * `expense` - Expense
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCategoryList'
+          description: ''
+    post:
+      operationId: v1_categories_create
+      description: List/create/update the current user's categories plus global defaults.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+  /api/v1/categories/{id}/:
+    get:
+      operationId: v1_categories_retrieve
+      description: List/create/update the current user's categories plus global defaults.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this category.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    put:
+      operationId: v1_categories_update
+      description: List/create/update the current user's categories plus global defaults.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this category.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    patch:
+      operationId: v1_categories_partial_update
+      description: List/create/update the current user's categories plus global defaults.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this category.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+    delete:
+      operationId: v1_categories_destroy
+      description: List/create/update the current user's categories plus global defaults.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this category.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/dashboard/category-spending:
+    get:
+      operationId: v1_dashboard_category_spending_retrieve
+      summary: Category-wise spending for a month
+      parameters:
+      - in: query
+        name: month
+        schema:
+          type: integer
+          maximum: 12
+          minimum: 1
+      - in: query
+        name: year
+        schema:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/dashboard/monthly-spending:
+    get:
+      operationId: v1_dashboard_monthly_spending_retrieve
+      summary: Monthly income/expense series for charts
+      parameters:
+      - in: query
+        name: months
+        schema:
+          type: integer
+          maximum: 24
+          minimum: 1
+          default: 12
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/dashboard/recent-transactions:
+    get:
+      operationId: v1_dashboard_recent_transactions_retrieve
+      summary: Most recent transactions
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          maximum: 50
+          minimum: 1
+          default: 5
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/dashboard/summary:
+    get:
+      operationId: v1_dashboard_summary_retrieve
+      summary: Financial overview
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/groups/:
+    get:
+      operationId: v1_groups_list
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupList'
+          description: ''
+    post:
+      operationId: v1_groups_create
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupCreate'
+          description: ''
+  /api/v1/groups/{group_pk}/expenses:
+    get:
+      operationId: group_expenses_list
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: List shared group expenses
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+    post:
+      operationId: group_expense_create
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Create and split a shared expense
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupExpenseCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupExpenseCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupExpenseCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/groups/{group_pk}/expenses/{expense_pk}:
+    get:
+      operationId: group_expense_retrieve
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Retrieve a shared expense with its shares
+      parameters:
+      - in: path
+        name: expense_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+    delete:
+      operationId: group_expense_delete
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Delete a shared expense
+      parameters:
+      - in: path
+        name: expense_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/groups/{group_pk}/members:
+    get:
+      operationId: v1_groups_members_retrieve
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: List group members
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+    post:
+      operationId: v1_groups_members_create
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Add a member to the group
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddMemberRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddMemberRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AddMemberRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/groups/{group_pk}/members/{member_pk}:
+    delete:
+      operationId: v1_groups_members_destroy
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Remove a member from the group
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      - in: path
+        name: member_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/groups/{group_pk}/settlements:
+    get:
+      operationId: v1_groups_settlements_retrieve
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: List recorded settlements
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+    post:
+      operationId: v1_groups_settlements_create
+      description: Resolve a group and ensure the requesting user is a member.
+      summary: Record a settlement payment
+      parameters:
+      - in: path
+        name: group_pk
+        schema:
+          type: integer
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SettlementCreateRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SettlementCreateRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SettlementCreateRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/groups/{id}/:
+    get:
+      operationId: v1_groups_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    put:
+      operationId: v1_groups_update
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    patch:
+      operationId: v1_groups_partial_update
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+          description: ''
+    delete:
+      operationId: v1_groups_destroy
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/groups/{id}/balances/:
+    get:
+      operationId: v1_groups_balances_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      summary: Net balance per member
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/groups/{id}/settlement-plan/:
+    get:
+      operationId: v1_groups_settlement_plan_retrieve
+      description: |-
+        Wraps successful viewset responses in the standard API envelope.
+
+        Responses that are already enveloped (through ``api_success``) or error
+        responses are left untouched.
+      summary: Simplified settlement plan
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this group.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/reports/category:
+    get:
+      operationId: v1_reports_category_retrieve
+      summary: Category-wise report for a date range
+      parameters:
+      - in: query
+        name: end_date
+        schema:
+          type: string
+          format: date
+        required: true
+      - in: query
+        name: start_date
+        schema:
+          type: string
+          format: date
+        required: true
+      - in: query
+        name: type
+        schema:
+          enum:
+          - income
+          - expense
+          type: string
+          default: expense
+          minLength: 1
+        description: |-
+          * `income` - income
+          * `expense` - expense
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/reports/monthly:
+    get:
+      operationId: v1_reports_monthly_retrieve
+      summary: Monthly report with daily trend
+      parameters:
+      - in: query
+        name: month
+        schema:
+          type: integer
+          maximum: 12
+          minimum: 1
+      - in: query
+        name: year
+        schema:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/reports/yearly:
+    get:
+      operationId: v1_reports_yearly_retrieve
+      summary: Yearly report with monthly totals
+      parameters:
+      - in: query
+        name: year
+        schema:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/transactions/:
+    get:
+      operationId: v1_transactions_list
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: number
+      - in: query
+        name: date_from
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: date_to
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: is_recurring
+        schema:
+          type: boolean
+      - in: query
+        name: max_amount
+        schema:
+          type: number
+      - in: query
+        name: min_amount
+        schema:
+          type: number
+      - in: query
+        name: month
+        schema:
+          type: number
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: payment_method
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - expense
+          - income
+        description: |-
+          * `income` - Income
+          * `expense` - Expense
+      - in: query
+        name: year
+        schema:
+          type: number
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTransactionList'
+          description: ''
+    post:
+      operationId: v1_transactions_create
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+  /api/v1/transactions/{id}/:
+    get:
+      operationId: v1_transactions_retrieve
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this transaction.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+    put:
+      operationId: v1_transactions_update
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this transaction.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+    patch:
+      operationId: v1_transactions_partial_update
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this transaction.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTransactionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTransactionRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTransactionRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+          description: ''
+    delete:
+      operationId: v1_transactions_destroy
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this transaction.
+        required: true
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/transactions/stats/:
+    get:
+      operationId: v1_transactions_stats_retrieve
+      description: CRUD + search/filter/pagination, scoped to the authenticated user.
+      summary: Income/expense totals for an optional date range
+      parameters:
+      - in: query
+        name: date_from
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: date_to
+        schema:
+          type: string
+          format: date
+      tags:
+      - v1
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    AddMemberRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+      required:
+      - email
+    AnalysisQueryRequest:
+      type: object
+      properties:
+        month:
+          type: integer
+          maximum: 12
+          minimum: 1
+        year:
+          type: integer
+          maximum: 2100
+          minimum: 2000
+    Budget:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/Category'
+          readOnly: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        month:
+          type: integer
+          maximum: 12
+          minimum: 1
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        alert_threshold:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        is_active:
+          type: boolean
+        spent:
+          type: string
+          readOnly: true
+        remaining:
+          type: string
+          readOnly: true
+        utilization_percentage:
+          type: number
+          format: double
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        is_alert:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - amount
+      - category
+      - created_at
+      - id
+      - is_alert
+      - month
+      - remaining
+      - spent
+      - status
+      - utilization_percentage
+      - year
+    BudgetRequest:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        month:
+          type: integer
+          maximum: 12
+          minimum: 1
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        alert_threshold:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        is_active:
+          type: boolean
+      required:
+      - amount
+      - month
+      - year
+    CategorizeRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+      required:
+      - description
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        icon:
+          type: string
+          maxLength: 64
+        color:
+          type: string
+          maxLength: 16
+        is_default:
+          type: boolean
+          readOnly: true
+        scope:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - is_default
+      - name
+      - scope
+      - type
+    CategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        icon:
+          type: string
+          maxLength: 64
+        color:
+          type: string
+          maxLength: 16
+      required:
+      - name
+      - type
+    ChangePasswordRequest:
+      type: object
+      properties:
+        old_password:
+          type: string
+          writeOnly: true
+          minLength: 1
+        new_password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        new_password2:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - new_password
+      - new_password2
+      - old_password
+    CustomTokenObtainPairRequest:
+      type: object
+      description: Adds safe user details to the login response.
+      properties:
+        email:
+          type: string
+          writeOnly: true
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
+      - password
+    FinancialQueryRequest:
+      type: object
+      properties:
+        question:
+          type: string
+          minLength: 1
+          maxLength: 500
+      required:
+      - question
+    Group:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        currency:
+          type: string
+          maxLength: 3
+        created_by:
+          allOf:
+          - $ref: '#/components/schemas/UserLite'
+          readOnly: true
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserLite'
+          readOnly: true
+        member_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - created_by
+      - id
+      - member_count
+      - members
+      - name
+    GroupCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 150
+        description:
+          type: string
+        currency:
+          type: string
+          maxLength: 3
+      required:
+      - name
+    GroupCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        description:
+          type: string
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+      required:
+      - name
+    GroupExpenseCreateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        date:
+          type: string
+          format: date
+        split_type:
+          $ref: '#/components/schemas/SplitTypeEnum'
+        paid_by:
+          type: integer
+        category_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+        shares:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareInputRequest'
+          writeOnly: true
+      required:
+      - amount
+      - description
+      - paid_by
+    GroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        description:
+          type: string
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+      required:
+      - name
+    PaginatedBudgetList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Budget'
+    PaginatedCategoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    PaginatedGroupList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+    PaginatedTransactionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+    PatchedBudgetRequest:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        month:
+          type: integer
+          maximum: 12
+          minimum: 1
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        alert_threshold:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        is_active:
+          type: boolean
+    PatchedCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        icon:
+          type: string
+          maxLength: 64
+        color:
+          type: string
+          maxLength: 16
+    PatchedGroupRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 150
+        description:
+          type: string
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+    PatchedTransactionRequest:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        date:
+          type: string
+          format: date
+        payment_method:
+          type: string
+          maxLength: 50
+        notes:
+          type: string
+        is_recurring:
+          type: boolean
+    PatchedUserProfileRequest:
+      type: object
+      description: Flat representation combining User + Profile, used for GET/PATCH
+        profile.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 20
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+        timezone:
+          type: string
+          minLength: 1
+          maxLength: 64
+        bio:
+          type: string
+        avatar_url:
+          oneOf:
+          - type: string
+            format: uri
+          - type: string
+            maxLength: 0
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        country:
+          type: string
+    RefreshTokenRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    Register:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 20
+        currency:
+          type: string
+          maxLength: 3
+        timezone:
+          type: string
+          maxLength: 64
+      required:
+      - email
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          title: Email address
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+        password2:
+          type: string
+          writeOnly: true
+          minLength: 1
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 20
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+        timezone:
+          type: string
+          minLength: 1
+          maxLength: 64
+      required:
+      - email
+      - password
+      - password2
+    RoleEnum:
+      enum:
+      - admin
+      - member
+      type: string
+      description: |-
+        * `admin` - Admin
+        * `member` - Member
+    SettlementCreateRequest:
+      type: object
+      properties:
+        to_user:
+          type: integer
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        note:
+          type: string
+          default: ''
+      required:
+      - amount
+      - to_user
+    ShareInputRequest:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+      required:
+      - user_id
+    SourceEnum:
+      enum:
+      - manual
+      - ai
+      type: string
+      description: |-
+        * `manual` - Manual
+        * `ai` - AI Categorized
+    SplitTypeEnum:
+      enum:
+      - equal
+      - custom
+      - percentage
+      type: string
+      description: |-
+        * `equal` - Equal
+        * `custom` - Custom amounts
+        * `percentage` - Percentages
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TokenRefreshRequest:
+      type: object
+      properties:
+        refresh:
+          type: string
+          minLength: 1
+      required:
+      - refresh
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        category:
+          allOf:
+          - $ref: '#/components/schemas/Category'
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        description:
+          type: string
+          maxLength: 255
+        date:
+          type: string
+          format: date
+        payment_method:
+          type: string
+          maxLength: 50
+        notes:
+          type: string
+        is_recurring:
+          type: boolean
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - amount
+      - category
+      - created_at
+      - description
+      - id
+      - source
+      - type
+      - updated_at
+    TransactionRequest:
+      type: object
+      properties:
+        category_id:
+          type: integer
+          writeOnly: true
+          nullable: true
+        type:
+          $ref: '#/components/schemas/TypeEnum'
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        date:
+          type: string
+          format: date
+        payment_method:
+          type: string
+          maxLength: 50
+        notes:
+          type: string
+        is_recurring:
+          type: boolean
+      required:
+      - amount
+      - description
+      - type
+    TypeEnum:
+      enum:
+      - income
+      - expense
+      type: string
+      description: |-
+        * `income` - Income
+        * `expense` - Expense
+    UserLite:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        full_name:
+          type: string
+          readOnly: true
+      required:
+      - email
+      - full_name
+      - id
+    UserProfile:
+      type: object
+      description: Flat representation combining User + Profile, used for GET/PATCH
+        profile.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+          title: Email address
+        full_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 20
+        currency:
+          type: string
+          maxLength: 3
+        timezone:
+          type: string
+          maxLength: 64
+        bio:
+          type: string
+        avatar_url:
+          oneOf:
+          - type: string
+            format: uri
+          - type: string
+            maxLength: 0
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        country:
+          type: string
+        is_verified:
+          type: boolean
+          readOnly: true
+        date_joined:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - date_joined
+      - email
+      - full_name
+      - id
+      - is_verified
+    UserProfileRequest:
+      type: object
+      description: Flat representation combining User + Profile, used for GET/PATCH
+        profile.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          maxLength: 20
+        currency:
+          type: string
+          minLength: 1
+          maxLength: 3
+        timezone:
+          type: string
+          minLength: 1
+          maxLength: 64
+        bio:
+          type: string
+        avatar_url:
+          oneOf:
+          - type: string
+            format: uri
+          - type: string
+            maxLength: 0
+        date_of_birth:
+          type: string
+          format: date
+          nullable: true
+        country:
+          type: string
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
